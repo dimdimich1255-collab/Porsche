@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porsche</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 120px; /* Отступ сверху чтобы хедер не перекрывал контент */
+        }
+
+        body {
+            margin: 0;
+            padding: 120px 20px 20px 20px; /* Отступ сверху равен высоте хедера */
+            background-color: rgb(59, 59, 59);
+        }
+        .header_container {
+            width: 100%;
+            height: 100px;
+            background-color: rgb(37, 37, 37);
+            display: flex;
+            align-items: center;
+            border-radius: 25px;
+            position: fixed;
+            top: 0; /* Исправлено: было -20px */
+            left: 0; /* Добавлено для фиксированной позиции */
+            z-index: 1000; /* Чтобы хедер был поверх других элементов */
+            box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.625);
+            transition: 0.4s ease;
+            box-sizing: border-box; /* Чтобы padding не ломал ширину */
+            padding: 0 20px; /* Добавлены отступы по бокам */
+        }
+        .header_container:hover {
+            box-shadow: 0 0 10px rgba(152, 152, 152, 0.625);
+        }
+
+        .header_title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .red_line {
+            width: 1px;
+            height: 35px;
+            background-color: red;
+            margin-left: 20px;
+            margin-top: 0px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            animation: line 1.2s ease-in-out forwards;
+            position: absolute;
+            top: 0px;
+            
+        }
+        .yellow_line {
+            width: 1px;
+            height: 35px;
+            background-color: rgb(245, 255, 47);
+            margin-left: 20px;
+            margin-top: -20px;
+            animation: line 1.9s ease-in-out forwards;
+            position: absolute;
+            top: 50px;
+        }
+        .black_line{
+            width: 1px;
+            height: 35px;
+            background-color: rgb(0, 0, 0);
+            margin-left: 20px;
+            margin-top: -35px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            animation: line 2.5s ease-in-out forwards;
+            position: absolute;
+            top: 100px;
+        }
+
+        h1 {
+            color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 40px;
+            margin-left: 25px;
+            text-shadow: 4px 4px 10px rgb(0, 0, 0);
+            transition: 0.4s ease-in-out;
+        }
+
+        img {
+            margin-left: 25px;
+        }
+
+        ul {
+            display: flex;
+            color: white;
+            gap: 30px;
+            margin-left: 1100px;
+            font-size: large;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            list-style: none;
+            position: absolute;
+        }
+
+        .carts {
+            width: 100%;
+            height: 600px;
+            background-color: rgb(44, 44, 44);
+            border-radius: 25px;
+            align-items: center;
+            margin-top: 50px;
+            display: flex;
+            box-shadow: 0 0 20px rgb(184, 184, 184);
+            transition: 0.2s ease;
+        }
+        .carts:hover {
+            box-shadow: 0 0 20px rgb(78, 78, 78);
+        }
+
+
+        .cart_911 {
+            display:inline-block;
+            width: 400px;
+            height: 450px;
+            background-color: rgb(109, 109, 109);
+            border-radius: 25px;
+            margin-right: 30px;
+            margin-left: 50px;
+            margin-top: 50px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.523);
+            border: 5px solid rgb(65, 65, 65);
+            transition: 0.3s ease;
+            align-items: center;
+        }
+
+        .cart_911:hover {
+            box-shadow: 0 0 20px rgb(255, 255, 255);
+            transform: scale(1.05);
+            background-color: rgb(65, 65, 65);
+            border: 5px solid rgb(109, 109, 109);
+        }
+
+        h2 {
+            color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 40px;
+            padding-left: 100px;
+            position: relative;
+            top: -20px;
+        }
+
+        .specs {
+            color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            align-items: center;
+            display: inline-block;
+        }
+        p {
+            padding-bottom: 1px;
+            padding-right: 20px;
+            margin-left: 20px;
+            margin-bottom: -10px;
+            position: relative;
+            top: -50px;
+        }
+
+        strong {
+            font-size: 20px;
+        }
+
+        .cart_cayenne {
+            display:inline-block;
+            width: 400px;
+            height: 450px;
+            background-color: rgb(109, 109, 109);
+            border-radius: 25px;
+            margin-right: 30px;
+            margin-left: 50px;
+            margin-top: 50px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.523);
+            border: 5px solid rgb(65, 65, 65);
+            transition: 0.3s ease;
+            align-items: center;
+        }
+
+        .cart_cayenne:hover {
+            box-shadow: 0 0 20px rgb(255, 255, 255);
+            transform: scale(1.05);
+            background-color: rgb(65, 65, 65);
+            border: 5px solid rgb(109, 109, 109);
+        }
+
+        .cart_taycan {
+            display:inline-block;
+            width: 400px;
+            height: 450px;
+            background-color: rgb(109, 109, 109);
+            border-radius: 25px;
+            margin-right: 30px;
+            margin-left: 50px;
+            margin-top: 50px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.523);
+            border: 5px solid rgb(65, 65, 65);
+            transition: 0.3s ease;
+            align-items: center;
+        }
+
+        .cart_taycan:hover {
+            box-shadow: 0 0 20px rgb(255, 255, 255);
+            transform: scale(1.05);
+            background-color: rgb(65, 65, 65);
+            border: 5px solid rgb(109, 109, 109);
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            transition: 0.3s ease;
+        }
+
+        a:hover {
+            color: #ffcb20;
+        }
+
+        .Z {
+            gap: 300px;
+            margin-left: -40px;
+            margin-right: 30px;
+        }
+
+        .History {
+            width: 95%;
+            padding: 40px;
+            background-color: rgb(44, 44, 44);
+            border-radius: 25px;
+            margin-top: 50px;
+            color: white;
+        }
+
+        #His_h1 {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #d4af37;
+            transition: 0.3s ease;
+        }
+
+        #His_h1:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgb(232, 255, 119);
+        }
+
+        .history-content h3 {
+            color: #ff6b6b;
+            font-size: 24px;
+            margin: 25px 0 15px 0;
+            border-left: 4px solid #ff0000;
+            padding-left: 15px;
+        }
+
+        .history-content ul {
+            position: static;
+            display: block;
+            margin-left: 0;
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .history-content li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+
+        .history-content p {
+            position: static;
+            color: #e0e0e0;
+            margin: 15px 0;
+            line-height: 1.6;
+            display: grid;
+        }
+
+
+        h3 {
+            background-color: #383838;
+            width: 300px;
+            border-radius: 25px;
+        }
+
+        .Imgs {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0);
+            position: absolute;
+            right: 20%;
+            gap: 70px; /* расстояние между элементами */
+            padding: 20px; /* отступы внутри */
+            box-sizing: border-box; /* чтобы padding не увеличивал размер */
+            align-items: center;
+            justify-content: center;
+        }
+
+        #Ferdinand_Porsche {
+            border-radius: 25px;
+            width: 100%; /* растягиваем на всю ширину */
+            height: auto; /* сохраняем пропорции */
+            box-shadow: 16px 16px 20px rgb(0, 0, 0);
+            transition: 0.3s ease;
+        }
+
+        #Ferdinand_Porsche:hover {
+            box-shadow: 4px 4px 20px rgb(185, 185, 185)
+        }
+
+        #first_model {
+            border-radius: 25px;
+            width: 100%;
+            height: auto;
+            box-shadow: 16px 16px 20px rgb(0, 0, 0);
+            transition: 0.3s ease;
+        }
+
+        #first_model:hover {
+            box-shadow: 4px 4px 20px rgb(185, 185, 185)
+        }
+
+        #Wins {
+            border-radius: 25px;
+            width: 100%;
+            height: auto;
+            box-shadow: 16px 16px 20px rgb(0, 0, 0);
+            transition: 0.3s ease;
+        }
+
+        #Wins:hover {
+            box-shadow: 4px 4px 20px rgb(185, 185, 185);
+        }
+
+        .footer_container {
+            background-color: rgb(37, 37, 37);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+            border-radius: 25px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        .footer-section h3 {
+            color: #ffd700;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section h4 {
+            color: #ffd700;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section p {
+            margin: 8px 0;
+            color: #ccc;
+            line-height: 1.5;
+            padding-top: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .social-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .social-links a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .creator-info {
+            color: #999;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .creator-info strong {
+            color: #ffd700;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+                max-width: 100%;
+            }
+            
+            .footer_container {
+                padding: 30px 15px;
+                width: 90%;
+            }
+        }
+
+        #menu {
+            position: absolute;
+            top: 200px; /* Под хедером */
+            left: 0;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes Up {
+            0% {
+                top: 0px;
+                box-shadow: 0 0 15px white;
+            }
+
+            100% {
+                top: -10px;
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.8),
+                            0 0 40px rgba(255, 0, 0, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes line {
+            0% {
+                width: 1px;
+            }
+
+
+            50% {
+                width: 800px;
+            }
+
+            100% {
+                width: 0px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <section id="home"></section>
+    <div class="header_container">
+        <div class="header_title">
+            <img width="70px"  src="porsche_icon.png" alt="porsche_icon">
+            <h1>Porsche</h1>
+        </div>
+        <div class="header_animations">
+            <div class="red_line"></div>
+            <div class="yellow_line"></div>
+            <div class="black_line"></div>
+        </div>
+        <ul>
+            <li class="Z"><a href="#home">Главная</a></li>
+            <li class="Z"><a href="#contacts">Контакты</a></li>
+            <li class="Z"><a href="#about">Подробнее</a></li>
+            <li class="Z"><a href="#menu">Меню</a></li>
+        </ul>
+    </div>
+    <section id="menu"></section>
+    <div class="carts">
+        <div class="cart_911">
+            <img width="350px" style="padding-top: 30px;" src="Porsche911.avif" alt="911">
+            <h2>Porsche 911</h2>
+            <div class="specs">
+                <p><strong>Двигатель:</strong> 3.0 л Twin-Turbo</p>
+                <p><strong>Мощность:</strong> 450 л.с.</p>
+                <p><strong>Разгон 0-100:</strong> 3.7 сек</p>
+                <p><strong>Привод:</strong> Задний/Полный</p>
+                <p><strong>КПП:</strong> 8-ст. PDK</p>
+                <p><strong>Вес:</strong> 1 515 кг</p>
+            </div>
+        </div>
+        <div class="cart_taycan">
+            <img width="350px" style="padding-top: 30px;" src="Porsche_taycan.avif" alt="taycan">
+            <h2 style="padding-left: 70px;">Porsche Taycan</h2>
+            <div class="specs">
+                <p><strong>Тип:</strong> Полностью электрический</p>
+                <p><strong>Мощность:</strong> 761 л.с. (overboost)</p>
+                <p><strong>Запас хода:</strong> 412 км</p>
+                <p><strong>Разгон 0-100:</strong> 2.8 сек</p>
+                <p><strong>Макс. скорость:</strong> 260 км/ч</p>
+                <p><strong>Быстрая зарядка:</strong> 270 кВт</p>
+            </div>
+        </div>
+        <div class="cart_cayenne">
+            <img width="350px" style="padding-top: 30px;" src="Porsche_cayenne.avif" alt="cayenne">
+            <h2 style="padding-left: 60px; padding-bottom: -20px;">Porsche Cayenne</h2>
+            <div class="specs">
+                <p><strong>Двигатель:</strong> 2.9 л V6 Twin-Turbo</p>
+                <p><strong>Мощность:</strong> 440 л.с.</p>
+                <p><strong>Крутящий момент:</strong> 550 Нм</p>
+                <p><strong>Разгон 0-100:</strong> 5.0 сек</p>
+                <p><strong>Привод:</strong> Полный (4WD)</p>
+                <p><strong>Расход:</strong> 10.5 л/100км</p>
+            </div>
+        </div>
+    </div>
+    <section id="about"></section>
+    <div class="History">
+        <h1 id="His_h1">Все О Порш</h1>
+        <div class="history-content">
+            <h3>1930-е: Основание</h3>
+                <div class="Imgs">
+                    <img id="Ferdinand_Porsche" width="200px" src="Ferdinand_Porsche.jpg"  alt="">
+                    <img id="first_model" src="porsche-15.jpg" alt="">
+                    <img id="Wins" src="PorscheWins.jpg" width="300px" alt="">
+                </div>
+            </h3>
+            <ul>
+                <li>1931 - Фердинанд Порше основывает компанию в Штутгарте</li>
+                <li>1934 - Разработка Volkswagen Beetle</li>
+                <li>1939 - Первый автомобиль Porsche Type 64</li>
+            </ul>
+
+            <h3>1940-е: Первые модели</h3>
+            <ul>
+                <li>1948 - Выпуск Porsche 356</li>
+                <li>1949 - Начало производства в Штутгарте</li>
+            </ul>
+
+            <h3>1960-е: Рождение легенды</h3>
+            <ul>
+                <li>1963 - Представление Porsche 911</li>
+                <li>1964 - Начало серийного производства 911</li>
+            </ul>
+
+            <h3>1970-е: Инновации</h3>
+            <ul>
+                <li>1974 - Первый Porsche 911 Turbo</li>
+                <li>1977 - Модель Porsche 928</li>
+            </ul>
+
+            <h3>2000-е: Расширение</h3>
+            <ul>
+                <li>2002 - Первый внедорожник Cayenne</li>
+                <li>2009 - Четырехдверный седан Panamera</li>
+            </ul>
+
+            <h3>2010-е: Электрификация</h3>
+            <ul>
+                <li>2019 - Запуск полностью электрического Taycan</li>
+            </ul>
+
+            <h3>Достижения</h3>
+            <p>19 побед в 24-часовой гонке в Ле-Мане, более 30 000 побед в автоспорте</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer_container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Porsche</h3>
+                    <p>Легендарные автомобили с 1931 года</p>
+                    <p>Исключительное качество и инновации</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>📧 porsche.info@contact.com</p>
+                    <p>📞 +996 (999) 123-456</p>
+                    <p>📍 Кыргызстан, Бишкек</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Соцсети</h4>
+                    <div class="social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">YouTube</a>
+                        <a href="#">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="creator-info">
+                    <p>© 2024 Porsche. Все права защищены</p>
+                    <p>Создатель: <strong>Алмазов Эйнар</strong> - Intellect Pro School, 6-Б класс</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <section id="contacts"></section>
+</body>
+</html>
